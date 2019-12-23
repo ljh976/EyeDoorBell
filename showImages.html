@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th {text-align: left;}
+</style>
+
+<script>
+
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+		var trHTML = '<table><tr><th>Time</th><th>Image</th><th>Name</th></tr>';
+		for(var i =0;i<myObj.length;i++){
+	    trHTML += '<tr><td>' + myObj[i].time + '</td><td>';
+		//trHTML += '<img src="data:image/png;base64,' + myObj[i].image + '" />'+ '</td><td>';
+		trHTML += '<img src="' + myObj[i].image + '" />'+ '</td><td>';
+		trHTML += myObj[i].name + '</td></tr>';
+		}
+		trHTML += '</table>';
+		document.getElementById("images").innerHTML = trHTML;
+		
+    }
+}
+
+xmlhttp.open("GET", "getImages.php", true);
+xmlhttp.send();
+
+
+}
+
+</script>
+
+<script>
+function BringAllpics() {
+	
+	var dir = "C:\Users\junho\Google Drive\Eyedoorbell_mail/"
+	var file_ext = ".jpg"
+	var text = "";
+	
+    
+	var x = document.createElement("IMG");
+	//var images = document.querySelectorAll('#div_id img');
+	var srcList = [];
+	
+	
+	for(var i = 0; i < images.length; i++) {
+		document.write(images[i]);
+		srcList.push(images[i].src);
+	}
+	
+	srcList.push(x);
+	x.setAttribute("src", 3+".jpg");
+	;
+	
+		x.setAttribute("width", "304");
+		x.setAttribute("height", "228");
+		text = "<br>" + "Image index: " + i + "<br>";
+		document.body.appendChild(x);
+		document.write(text);
+	
+	//document.write(images.length + "<br>")
+	//document.write(srcList.length + "<br>")
+
+	}
+	
+	var finder = require('findit').find(__dirname);
+	var files = [];
+
+	
+	document.write('done');
+	
+</script>
+
+
+
+<body>
+
+<p id="images"></p>
+
+	<script>
+	BringAllpics()
+	</script>
+
+</body>
+
+
+</html>

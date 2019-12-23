@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th {text-align: left;}
+</style>
+<center>
+<body>
+
+
+<p id="messages"></p>
+
+<script>
+
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+		var trHTML = '<table><tr><th>Time</th><th>Audio Message</th></tr>';
+		for(var i =0;i<myObj.length;i++){
+	    trHTML += '<tr><td>' + myObj[i].time + '</td><td>';
+		trHTML += '<audio controls src="' + myObj[i].message + '" type="audio/mp3" />'+ '</td></tr>';
+		//trHTML += '<audio controls src="data:audio/mp3;base64,' + myObj[i].message + '" />'+ '</td></tr>';
+		}
+		trHTML += '</table>';
+		document.getElementById("messages").innerHTML = trHTML;
+		
+    }
+};
+
+
+
+xmlhttp.open("GET", "getMessages.php", true);
+xmlhttp.send();
+
+</script>
+
+</body>
+</center>
+</html>
